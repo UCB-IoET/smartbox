@@ -1,0 +1,54 @@
+<% require 'date' %>
+<% sensors.each do |sensor|%>
+  <div class="col-md-3">
+  <% if(sensor[1]['type'] > 0) %>
+    <div class="panel panel-danger">
+  <% else %>
+    <div class="panel panel-info">
+  <% end %>
+      <div class="panel-heading">
+        <h1 class="panel-title"><%=sensor[0]%></h1>
+      </div>
+      <div class="panel-body">
+        <% if(sensor[1]['type'] == 0) %>
+          <% if(sensor[1]['Readings'].length > 0) %>
+            <strong>
+            <% if sensor[1]['Readings'][0][1] == 1 %>
+              CURRENTLY OPEN
+            <% else %>
+              CURRENTLY CLOSED
+            <% end %>
+            </strong>
+            <br>
+            <hr>
+          <% end %>
+          <% sensor[1]['Readings'].each do |reading| %>
+            <strong>
+            <% if reading[1] == 1 %>
+              Opened
+            <% else %>
+              Closed
+            <% end %>
+            </strong>
+            at <%=Time.at(reading[0]/1000).ctime%>
+            <br>
+          <% end %>
+        <% else %>
+          <% total = 0 %>
+          <% sensor[1]['Readings'].each do |reading| %>
+            <% total += reading[1] %>
+          <% end %>
+          Opened <%= total %> out of <%=sensor[1]['type']%> times in the last day!
+          <br>
+          <% if sensor[1]['Readings'][0] and sensor[1]['Readings'][0][1] == 1 %>
+            Currently <strong>open</strong>
+          <% elsif sensor[1]['Readings'][0] and sensor[1]['Readings'][0][1] == 0 %>
+            Currently <strong>closed</strong>
+          <% else %>
+            Hasn't been used in a while ):
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
