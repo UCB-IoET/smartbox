@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="alert alert-info">
+    <strong>Hey there!</strong> 
+    Welcome to the magnet sensor web app.
+    Select a <strong> location </strong> below
+    to find your sensors!
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h1 class="panel-title">Locations</h1>
+      </div>
+      <div class="panel-body">
+        <div class="list-group">
+          <% locations.each do |loc| %>
+            <a class="list-group-item" href="/location/<%=loc%>">
+              <%=loc%>
+            </a>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
